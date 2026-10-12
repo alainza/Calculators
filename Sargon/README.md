@@ -20,7 +20,8 @@ Paths are relative to `Sargon`.
 | File | What it is |
 | --- | --- |
 | `Sharp_PC_G850VS\sargon-g850.asm` | The port. Assemble on the PC with zmac. |
-| `_build\` | zmac output (created by the build): `sargon-g850.hex` is sent to the calculator; the `.lst` files hold the listing and symbols. |
+| `Sharp_PC_G850VS\prebuilt\sargon-g850.hex` | Ready-to-send program, tested on a PC-G850VS. Use it if you don't want to build. |
+| `_build\` | zmac output (created by the build, not in git): `sargon-g850.hex` is sent to the calculator; the `.lst` files hold the listing and symbols. |
 | `Original\sargon-z80.asm` | The original 1978 program (Z80 mnemonics), unchanged. It is the reference for the tests. |
 | `SargonSim\` | C# Z80 simulator used to test the port before it goes on the calculator. |
 | `SargonSim\games.txt`, `SargonSim\games-slow.txt` | Test games for `SargonSim test`. |
@@ -111,7 +112,7 @@ fetched from NuGet.
 dotnet run --project SargonSim -c Release -- test --games SargonSim\games.txt
 ```
 
-Run it from `Sharp_PC_G850VS`: SargonSim reads both programs from `_build`
+Run it from `Sargon`: SargonSim reads both programs from `_build`
 (`--orig-hex`, `--orig-lst`, `--port-hex` and `--port-lst` override that).
 
 Each game in `games.txt` is played through the original build and through the port.
@@ -122,7 +123,7 @@ depth-3 game (about 5 minutes).
 Play interactively in the simulator. It shows the 24×6 screen and waits for keys:
 
 ```bat
-dotnet run --project ..\SargonSim -c Release -- --hex _build\sargon-g850.hex --lst _build\sargon-g850.lst --mode g850 --entry G850 --interactive
+dotnet run --project SargonSim -c Release -- --hex _build\sargon-g850.hex --lst _build\sargon-g850.lst --mode g850 --entry G850 --interactive
 ```
 
 Notes on the simulator:
@@ -152,7 +153,8 @@ Notes on the simulator:
    1. Open the COM port.
    2. Untick **Trim / add lines #**.
    3. Leave **Line delay (ms)** at 50; raise it if the load fails.
-   4. Use **File → Send…** to send `_build\sargon-g850.hex`. It is about 10 KB, so
+   4. Use **File → Send…** to send `_build\sargon-g850.hex` (or the ready-built
+      `Sharp_PC_G850VS\prebuilt\sargon-g850.hex`). It is about 10 KB, so
       roughly 100 s at 1200 baud.
 
    SerialFiler ends the file with Ctrl-Z (`1Ah`), which ends the `R` command. The
@@ -164,3 +166,17 @@ If the load fails with DEVICE I/O ERROR, or the prompt never returns:
 - Increase the line delay to 100–200 ms.
 - In Device Manager, open the USB-serial port's Properties → Port Settings →
   Advanced… and untick "Use FIFO buffers".
+
+## Publishing a new prebuilt HEX
+
+`_build` is ignored by git, so building never changes the repository. When a new
+build has passed the simulator tests and works on the calculator, copy it into the
+tracked `prebuilt` folder and commit it with the source change:
+
+```bat
+copy /Y _build\sargon-g850.hex Sharp_PC_G850VS\prebuilt\sargon-g850.hex
+```
+
+`.gitattributes` at the repository root keeps `.hex` files in CR LF line endings,
+which the calculator's monitor needs. (The folder is not called `release` because
+the Visual Studio `.gitignore` ignores every folder with that name.)

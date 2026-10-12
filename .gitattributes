@@ -1,0 +1,3 @@
+# The PC-G850VS monitor loads Intel HEX files with CR LF line endings:
+# keep them that way on every checkout.
+*.hex text eol=crlf
