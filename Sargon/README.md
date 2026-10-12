@@ -8,10 +8,12 @@ in the same form.
 SARGON 1978
 PLAY W OR B? W
 DEPTH 1-6? 2
-YOUR MOVE? E2E4
-SARGON: E7E5
+YOUR MOVE? D2D4
+SARGON: D7D5
 YOUR MOVE?
 ```
+
+![Sargon running on a Sharp PC-G850VS](Sargon_g850.jpg)
 
 ## Files
 
