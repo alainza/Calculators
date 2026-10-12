@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SargonSim</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Z80 emulation core: Z80.NET by Konamiman (MIT licence).
+       By default it comes from NuGet. To build against a local clone instead
+       (e.g. when NuGet is unreachable), pass
+         dotnet build -p:Z80dotNetSource=path\to\Z80dotNet\Main\Main.csproj -->
+  <ItemGroup Condition="'$(Z80dotNetSource)' == ''">
+    <PackageReference Include="Z80dotNet" Version="1.*" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(Z80dotNetSource)' != ''">
+    <ProjectReference Include="$(Z80dotNetSource)" />
+  </ItemGroup>
+
+</Project>

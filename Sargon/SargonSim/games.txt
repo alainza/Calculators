@@ -1,0 +1,13 @@
+# Games for "SargonSim test --games games.txt".
+# Format: PLAYER-SIDE DEPTH player moves...
+# Each game is played through the original 1978 build and through the
+# PC-G850VS port; Sargon must answer with exactly the same moves.
+
+# Player white, depth 2: includes the player castling (e1g1).
+W 2 e2e4 d2d4 d4e5 c2c3 g1f3 f1c4 e1g1 b1d2 c1d2 d1b3 a1d1 f1f2
+
+# Player black, depth 1: Sargon castles queen side (e1c1) and promotes (e7d8).
+B 1 e7e5 g8f6 f8c5 e8g8 d7d6 c8g4 b8c6 f8e8 d8e7 a8d8
+
+# Player black, depth 2: Sargon mates with c4f7 (checkmate path).
+B 2 a7a6 h7h6 a6a5 h6h5 a8a7 h8h7 a7a6 h7h6

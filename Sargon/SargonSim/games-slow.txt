@@ -1,0 +1,3 @@
+# Depth 3 game: about 5 minutes in the simulator, about 5 minutes for the
+# slowest move on an 8 MHz PC-G850VS.
+W 3 d2d4 c2c4 b1c3 c1g5 e2e3
